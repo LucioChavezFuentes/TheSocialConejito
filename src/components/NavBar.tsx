@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 //CSS
+//The margin 'auto' keeps the Buttons Elements at the center of ToolBar
 import './NavBar.css';
 
 //React-Router-Dom
 import {Link} from 'react-router-dom';
-
-
 
 //Material  Ui Imports
 import AppBar from '@material-ui/core/AppBar';

@@ -33,9 +33,10 @@ class Home extends Component<HomeProps, HomeState> {
 
     render() {
         let recentScreamsMarkUp : any = this.state.screams ? (
-            this.state.screams.map( (scream : any) => <Scream scream={scream} />)
+            this.state.screams.map( (scream : any) => ( 
+            <Scream key={scream.screamId}  scream={scream} />))
             ) : (
-            <p>Loading...</p> 
+            <p>Loading...</p>
             );
 
         return (

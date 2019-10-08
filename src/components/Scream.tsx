@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import {Link} from 'react-router-dom';
+import dayjs from 'dayjs'; 
+import relativeTime from 'dayjs/plugin/relativeTime'; 
 
 //Material UI Cards
 import Card from '@material-ui/core/Card';
@@ -10,7 +12,15 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = {
     card : {
-        display: 'flex'
+        display: 'flex',
+        marginBottom: 20
+    },
+    image: {
+        minWidth: 200
+    },
+    content: {
+        padding: 25,
+        objectFit: ("cover" as any) 
     }
 }
 
@@ -21,25 +31,33 @@ interface ScreamProps extends WithStyles<typeof styles>  {
 
 class Scream extends Component<ScreamProps> {
     render() {
+
+        dayjs.extend(relativeTime);
+
         const {classes, scream : {userImage, body, createdAt, userHandle, screamId, likeCount, commentCount}} = this.props
+
         return (
-            <div>
-                <Card>
-                    <CardMedia image= {userImage} title={'Profile Image'}>
-                    </CardMedia>
-                    <CardContent>
-                        <Typography variant='h5' color='primary'  >
-                            <Link to={`/users/${userHandle}`} >
+            
+            <div > 
+                <Card className={classes.card}>
+                    <CardMedia image={userImage} title={'Profile Image'} className={classes.image} /> 
+                    
+                    <CardContent className={classes.content}> 
+                        {/* 
+                             // @ts-ignore */}
+                        <Typography variant='h5' color='primary' component={Link} to={`/users/${userHandle}`}>
                                 {userHandle} 
-                            </Link>
                         </Typography>
-                        <Typography variant='body2' color='textSecondary'>{createdAt}</Typography>
-                        <Typography variant='body1' >{body}</Typography>
+
+                        <Typography variant='body2' color='textSecondary'>{dayjs(createdAt).fromNow()}</Typography>
+
+                        <Typography variant='body1' >{body}</Typography> 
+
                     </CardContent>
-                </Card> 
+                </Card>  
             </div>
         ) 
     }
 }
-
+ 
 export default withStyles(styles)(Scream)
