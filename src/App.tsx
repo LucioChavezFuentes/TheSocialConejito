@@ -18,7 +18,7 @@ import deepOrange from '@material-ui/core/colors/deepOrange';
 import blue from '@material-ui/core/colors/blue';
 
 //Components
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 
 //Pages
 import Home from './pages/home';
@@ -48,6 +48,8 @@ if(token){
 
   if(decodedToken.exp * 1000 < Date.now()) {
     store.dispatch(logoutUser() as any)
+    //The infinite loop in location.href = '/login' was provoke because the token wasn't remove from the localStorage before settting location.href
+    //You must remove the token from browser before setting location if the token is expired.
     window.location.href = '/login'
   } else {
     store.dispatch({type: SET_AUTHENTICATED})
