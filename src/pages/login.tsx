@@ -3,6 +3,7 @@ import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
 import AppIcon from '../images/icon.png';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {History} from 'history';
 
 //MUI Imports
 import Grid from '@material-ui/core/Grid';
@@ -11,18 +12,30 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-interface LoginProps extends WithStyles<typeof styles> {
-   history: any
-}
+
+
+//Redux Imports
+import {connect} from 'react-redux'
+import {loginUser} from '../redux/actions/userActions';
+import { AppState, UserData } from '../redux/types';
 
 //The Dynamic Key Type Index for setState aparently works if State properties are set as optional
 //More info in: https://stackoverflow.com/questions/42090191/picks-k-type-with-dynamic-computed-keys
 interface LoginState {
     email : string ;
     password: string;
-    loading: boolean;
     errors: any;
+    
+
+    
 }
+
+interface LoginProps extends WithStyles<typeof styles> {
+    history: History
+    loginUser: (userData : UserData, history : History) => any;
+    user: AppState['user'];
+    ui: AppState['ui'];
+ }
 
 const styles = createStyles({
     form :{
@@ -52,42 +65,32 @@ const styles = createStyles({
     progress : {
         position: 'absolute'
     }
-}) 
+}); 
 
 class Login extends Component<LoginProps, LoginState> {
 
     state:LoginState = {
         email: '',
         password: '',
-        loading: false,
-        errors: {}
+        errors: {},
     }
+
+    /*UNSAFE_componentWillReceiveProps(nextProps : LoginProps) {
+        if(nextProps.ui.errors){
+            this.setState({ errors: nextProps.ui.errors})
+        }
+        
+    }*/
 
     handleSubmit = (event : React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault()
-        this.setState({
-            loading: true
-        });
-
+        
         const userData = {
             email: this.state.email,
             password: this.state.password
         }
 
-        axios.post('/login', userData)
-            .then(res => {
-                this.setState({
-                    loading: false
-                })
-
-                this.props.history.push('/')
-            })
-            .catch((err) => {
-                this.setState({
-                    errors : err.response.data,
-                    loading: false
-                })
-            })
+        this.props.loginUser(userData, this.props.history);
 
     }
     handleChange = (event: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -101,8 +104,8 @@ class Login extends Component<LoginProps, LoginState> {
     }  
 
     render() {
-        const {classes} = this.props;
-        const {errors, loading} = this.state;
+        const {classes, ui: {loading, errors}} = this.props;
+        //const {errors} = this.state;
         return (
             <Grid container className= {classes.form}>
 
@@ -127,7 +130,7 @@ class Login extends Component<LoginProps, LoginState> {
                         </Typography> }
                     
                     <Button type='submit' variant='contained' color='primary' className={classes.button} disabled={loading}>
-                        Sign Up
+                        Login
                         {loading && (
                             <CircularProgress size={30} className={classes.progress} />)}
                     </Button>
@@ -147,4 +150,13 @@ class Login extends Component<LoginProps, LoginState> {
     }
 }
 
-export default withStyles(styles)(Login)
+const mapStateToProps = (globalState: AppState) => ({
+    user: globalState.user,
+    ui: globalState.ui
+})
+
+const mapActionsToProps = {
+    loginUser
+}
+
+export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Login))
