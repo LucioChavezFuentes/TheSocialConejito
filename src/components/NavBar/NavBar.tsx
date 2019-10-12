@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import MyButton from '../../util/MyButton';
 //CSS
 //The margin 'auto' keeps the Buttons Elements at the center of ToolBar
 import './NavBar.css';
@@ -11,26 +12,67 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
-export class NavBar extends Component {
+//Material Ui Icons
+import AddIcon from '@material-ui/icons/Add';
+import HomeIcon from '@material-ui/icons/Home';
+import Notifications from '@material-ui/icons/Notifications';
+
+//Redux imports
+import {connect} from 'react-redux';
+import { AppState } from '../../redux/store';
+
+
+
+interface Props {
+    authenticated: boolean
+}
+
+export class NavBar extends Component<Props> {
     render() {
+        const {authenticated} = this.props;
         return (
             <AppBar>
                 <Toolbar className='nav-container'>
-                    <Button color="inherit" component={Link} to='/'>
-                         Home 
-                    </Button>
+                    {authenticated ? ( 
+                        <Fragment>
+                            <MyButton tipTitle={'Post a Scream'} onClick={() => {}} tipClassName={'TobeDeclared'} btnClassName={'TobeDeclared'}  >
+                                <AddIcon color='primary' />
+                            </MyButton>
 
-                    <Button color="inherit" component={Link} to='/login'>
-                         Login 
-                    </Button>
+                            <Link to='/'>
+                                <MyButton tipTitle={'Home'} onClick={() => {}} tipClassName={'TobeDeclared'} btnClassName={'TobeDeclared'}  >
+                                    <HomeIcon color='primary' />
+                                </MyButton>
+                            </Link>
 
-                    <Button color="inherit" component={Link} to='/signup'>
-                         Signup 
-                    </Button>
+                            <MyButton tipTitle='notifications' onClick={() => {}} tipClassName={'TobeDeclared'} btnClassName={'TobeDeclared'}  >
+                                <Notifications color='primary' />
+                            </MyButton>
+                            
+
+                        </Fragment>) : (
+                        <Fragment>
+                            <Button color="inherit" component={Link} to='/'>
+                                Home 
+                            </Button>
+
+                            <Button color="inherit" component={Link} to='/login'>
+                                Login 
+                            </Button>
+
+                            <Button color="inherit" component={Link} to='/signup'>
+                                Signup 
+                            </Button>
+                        </Fragment>
+                    )}
                 </Toolbar>
             </AppBar>
         )
     }
 }
 
-export default NavBar
+const mapStateToProps = (globalState: AppState) => ({
+    authenticated: globalState.user.authenticated
+})
+
+export default connect(mapStateToProps)(NavBar);
