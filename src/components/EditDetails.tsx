@@ -26,11 +26,15 @@ import EditIcon from '@material-ui/icons/Edit';
 
 const styles = createStyles({
     buttons: {
+        float: 'right',  
         textAlign: 'center',
         '& a': {
           margin: '20px 10px'
-        }
-      }
+        } 
+      }, 
+      textField : {
+        margin: "0.8rem auto"
+    },
 })
 
 interface Props extends WithStyles<typeof styles> {
@@ -53,7 +57,7 @@ class EditDetails extends Component<Props, State> {
         open: false
     }
 
-    mapUserCredentialsToProps = (credentials : any) => {
+    mapUserCredentialsToState = (credentials : any) => {
         this.setState({
             bio: credentials.bio ? credentials.bio : '',
             website: credentials.website ? credentials.website : '',
@@ -63,22 +67,42 @@ class EditDetails extends Component<Props, State> {
 
     handleOpen = () => {
         this.setState({ open: true })
-        this.mapUserCredentialsToProps(this.props.credentials)
+        this.mapUserCredentialsToState(this.props.credentials)
     }
 
     handleClose = () => {
         this.setState({ open: false})
     }
 
+    handleChange = (event: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const key = event.currentTarget.name as keyof State;
+        const value =  event.currentTarget.value; 
+        //@ts-ignore
+        //The error is the following: https://stackoverflow.com/questions/42090191/picks-k-type-with-dynamic-computed-keys
+        this.setState({
+            [key]: value
+        })    
+    };
+    
+    handleSubmit = () => {
+        const userDetails = {
+            bio: this.state.bio,
+            website: this.state.website,
+            location: this.state.location,
+        }
+        this.props.editUserDetails(userDetails);
+        this.handleClose();
+    }
+
     componentDidMount() {
         const {credentials} = this.props;
-        this.mapUserCredentialsToProps(credentials)
+        this.mapUserCredentialsToState(credentials)
     }
 
     
 
     render() {
-        const {classes} = this.props;
+        const {classes} = this.props; 
         return ( 
             <Fragment>
                 <Tooltip title='Edit details' placement='top'>
@@ -86,8 +110,63 @@ class EditDetails extends Component<Props, State> {
                         <EditIcon color='primary' />
                     </IconButton>   
                 </Tooltip>
+                <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    fullWidth
+                    maxWidth='sm'>
+                        <DialogTitle>
+                            Edit your details.
+                        </DialogTitle>
+                        <DialogContent>
+                            <form>
+                                <TextField 
+                                    name='bio'
+                                    type='text'
+                                    label='Bio'
+                                    multiline
+                                    rows={3}
+                                    placeholder="A short bio about yourself"
+                                    className={classes.textField}
+                                    value={this.state.bio}
+                                    onChange={this.handleChange}
+                                    fullWidth
+                                    />
+                                <TextField 
+                                    name='website'
+                                    type='text'
+                                    label='Website'
+                                    placeholder="Your personal/professional website"
+                                    className={classes.textField}
+                                    value={this.state.website}
+                                    onChange={this.handleChange}
+                                    fullWidth
+                                    />
+                                <TextField 
+                                    name='location'
+                                    type='text'
+                                    label='Location'
+                                    placeholder="Where you live"
+                                    className={classes.textField}
+                                    value={this.state.location}
+                                    onChange={this.handleChange}
+                                    fullWidth
+                                    />
+                            </form>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleClose} color='primary'>
+                                Cancel
+                            </Button>
+                            <Button onClick={this.handleSubmit} color='primary'>
+                                Save
+                            </Button>
+                        </DialogActions>
+
+                </Dialog>
 
             </Fragment>
+
 
             //TODO: Implemet Dialog
         )
