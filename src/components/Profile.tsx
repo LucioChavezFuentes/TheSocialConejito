@@ -2,16 +2,17 @@ import React, { Component, Fragment } from 'react'
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
 import EditDetails from './EditDetails'; 
+import MyButton from '../util/MyButton';
 
 //MUI Imports
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
-import { createStyles, IconButton } from '@material-ui/core';
+import { createStyles } from '@material-ui/core';
 import { WithStyles } from '@material-ui/styles';
 import MuiLink from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Tooltip from '@material-ui/core/Tooltip';
+
 
 // MUI Icons
 import LocationOn from '@material-ui/icons/LocationOn';
@@ -24,6 +25,7 @@ import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 import {connect} from 'react-redux';
 import { AppState } from '../redux/types';
 import {logoutUser, uploadImage} from '../redux/actions/userActions';
+
 
 interface Props extends WithStyles<typeof styles> {
     user: AppState['user'];
@@ -134,11 +136,9 @@ class Profile extends Component<Props> {
                       hidden= {true}
                       onChange={this.handleImageChange} 
                       />
-                    <Tooltip title='Edit Profile Picture' placement='top'>
-                      <IconButton onClick={this.handleEditPicture} className="button" >
-                        <EditIcon color='primary' />
-                      </IconButton>
-                    </Tooltip>
+                    <MyButton tipTitle='Edit Profile Picture' btnClassName='button' onClick={this.handleEditPicture}>
+                      <EditIcon color='primary' />
+                    </MyButton>
                     
                 </div>
                 <hr />
@@ -170,12 +170,9 @@ class Profile extends Component<Props> {
                     <span>Joined {dayjs(createdAt).format('MMM YYYY')} </span>
                 </div>
 
-                  <Tooltip title='Logout' placement='top'>
-                    <IconButton onClick={this.handleLogout}>
-                      <KeyboardReturn color='primary' />
-
-                    </IconButton>
-                  </Tooltip>
+                  <MyButton tipTitle='Logout' onClick={this.handleLogout}>
+                    <KeyboardReturn color='primary' />
+                  </MyButton>
                   
                   <EditDetails />
             </div>
