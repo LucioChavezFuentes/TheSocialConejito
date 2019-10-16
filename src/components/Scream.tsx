@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs'; 
 import relativeTime from 'dayjs/plugin/relativeTime'; 
 import MyButton from '../util/MyButton';
+import DeleteScream from './DeleteScream';
 
 //Material UI Cards
 import Card from '@material-ui/core/Card';
@@ -21,8 +22,9 @@ import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-const styles = {
+const styles = createStyles({
     card : {
+        position: 'relative',
         display: 'flex',
         marginBottom: 20
     },
@@ -33,7 +35,7 @@ const styles = {
         padding: 25,
         objectFit: ("cover" as any) 
     }
-}
+})
 
 interface ScreamProps extends WithStyles<typeof styles>  {
     scream: any;
@@ -61,7 +63,11 @@ class Scream extends Component<ScreamProps> {
     };
 
     render() {
-        const {classes, scream : {userImage, body, createdAt, userHandle, screamId, likeCount, commentCount}, user: {authenticated}} = this.props
+        const {classes, scream : {
+            userImage, body, createdAt, userHandle, screamId, likeCount, commentCount}, 
+            user: {authenticated, credentials: { handle }
+            }
+        } = this.props
         
         const likeButton = !authenticated ? (
             <MyButton tipTitle='Like'>
@@ -83,13 +89,16 @@ class Scream extends Component<ScreamProps> {
 
         dayjs.extend(relativeTime);
 
-        
+        const deleteButton = authenticated && userHandle === handle ? (
+            <DeleteScream screamId={screamId} />
+            ) : null
 
         return (
             
             <div > 
                 <Card className={classes.card}>
                     <CardMedia image={userImage} title={'Profile Image'} className={classes.image} /> 
+                    {deleteButton}
                     
                     <CardContent className={classes.content}> 
                         {/* 

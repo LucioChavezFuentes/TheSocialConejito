@@ -22,10 +22,10 @@ export default function( state = initialState, action: Action) {
             }
         case CLEAR_ERRORS:
             return {
-                ...state,
+                ...state, 
                 loading: false,
-                errors: {}
-            }
+                errors: {} 
+            } 
         default:
             return state
     }

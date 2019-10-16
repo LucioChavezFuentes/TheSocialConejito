@@ -1,4 +1,4 @@
-import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM} from '../types/actionTypes/data'
+import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM} from '../types/actionTypes/data'
 
 
 import { Action } from "../types";
@@ -34,6 +34,20 @@ export default function(state = initialState, action: Action) : DataState {
             state.screams[index] = action.payload
             return {
                 ...state
+            }
+        case DELETE_SCREAM:
+            let indexToDelete = state.screams.findIndex((scream) => scream.screamId === action.payload);
+            state.screams.splice(indexToDelete, 1);
+            return {
+                ...state 
+            };
+        case POST_SCREAM:
+            return {
+                ...state,
+                screams: [
+                    action.payload,
+                    ...state.screams
+                ]
             }
         default:
             return state;

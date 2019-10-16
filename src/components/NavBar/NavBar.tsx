@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import MyButton from '../../util/MyButton';
+import PostScream from '../PostScream';
 //CSS
 //The margin 'auto' keeps the Buttons Elements at the center of ToolBar
 import './NavBar.css';
@@ -13,13 +14,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
 //Material Ui Icons
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import Notifications from '@material-ui/icons/Notifications';
 
 //Redux imports
 import {connect} from 'react-redux';
 import { AppState } from '../../redux/store';
+
 
 
 
@@ -35,9 +36,7 @@ export class NavBar extends Component<Props> {
                 <Toolbar className='nav-container'>
                     {authenticated ? ( 
                         <Fragment>
-                            <MyButton tipTitle={'Post a Scream'} onClick={() => {}} tipClassName={'TobeDeclared'} btnClassName={'TobeDeclared'}  >
-                                <AddIcon color='primary' />
-                            </MyButton>
+                            <PostScream />
 
                             <Link to='/'>
                                 <MyButton tipTitle={'Home'} onClick={() => {}} tipClassName={'TobeDeclared'} btnClassName={'TobeDeclared'}  >
