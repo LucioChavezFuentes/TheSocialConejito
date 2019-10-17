@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import MyButton from '../util/MyButton';
-import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
-import _ from 'lodash';
+import {withStyles, WithStyles,  createStyles } from '@material-ui/core'; 
 
 //Redux Imports
 import {connect} from 'react-redux';
@@ -51,6 +50,8 @@ const styles= createStyles({
 interface Props extends WithStyles<typeof styles> {
     postScream: (newScream: any) => void;
     clearErrors: () => void;
+    openWindowPostScream: () => void;
+    closeWindowPostScream: () => void;
     ui: AppState['ui'];
 }
 
@@ -67,12 +68,15 @@ export class PostScream extends Component<Props, State> {
     
     handleOpen = () => {
         
-        this.setState({open: true});
+        this.setState({body: ''});
+        this.props.openWindowPostScream();
     }
 
     handleClose = () => {
         
-        this.setState({open: false, body: ''});
+        this.setState({body: ''});
+        this.props.closeWindowPostScream();
+        this.props.clearErrors(); 
     }
 
     handleSubmit = (event : React.SyntheticEvent<HTMLFormElement>) => {
@@ -83,7 +87,6 @@ export class PostScream extends Component<Props, State> {
         };
         //postScream on Sucess will set erros to {}, on Fail will fill Errors Redux State object with the corresponding errors
         this.props.postScream(newScream);
-
     }
     handleChange = (event: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const key = event.currentTarget.name as keyof State;
@@ -94,7 +97,7 @@ export class PostScream extends Component<Props, State> {
             [key]: value
         })    
     };  
-
+/*
     componentDidUpdate(prevProps: Props){
         //Manage logic and redux state after handleSubmit and Dispatch.
         const{ui : {errors, loading}} = this.props
@@ -103,7 +106,7 @@ export class PostScream extends Component<Props, State> {
                 this.handleClose()
             }  
         }
-    };
+    };*/
 
 
     render() {
@@ -115,7 +118,7 @@ export class PostScream extends Component<Props, State> {
                 <MyButton tipTitle={'Post a Scream'} onClick={this.handleOpen} tipClassName={'TobeDeclared'} btnClassName={'TobeDeclared'}  >
                     <AddIcon color='primary' />
                 </MyButton> 
-                <Dialog open={this.state.open} onClose={this.handleClose} fullWidth maxWidth='sm'>
+                <Dialog open={isWindowPostScreamOpen} onClose={this.handleClose} fullWidth maxWidth='sm'>
                     <MyButton tipTitle='Cancel' onClick={this.handleClose} tipClassName={classes.closeButton}>
                         <CloseIcon />
                     </MyButton> 
@@ -162,11 +165,11 @@ const mapStateToProps = (appState: AppState) => ({
     ui: appState.ui
 })
 
-const mapActionsToProps = () => ({
+const mapActionsToProps = {
     postScream, 
     clearErrors,
     openWindowPostScream,
-    closeWindowPostScream})
+    closeWindowPostScream}
 
 export default connect(mapStateToProps, mapActionsToProps )(withStyles(styles)(PostScream))
  

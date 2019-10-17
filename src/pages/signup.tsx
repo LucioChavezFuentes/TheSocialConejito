@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
 import AppIcon from '../images/icon.png';
-import axios from 'axios';
 import {History} from 'history';
 import {Link} from 'react-router-dom';
 

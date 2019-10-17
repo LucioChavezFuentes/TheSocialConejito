@@ -1,5 +1,5 @@
 import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM} from '../types/actionTypes/data'
-import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS, CLOSE_WINDOW_POST_SCREAM, OPEN_WINDOW_POST_SCREAM} from '../types/actionTypes/ui';
+import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS, CLOSE_WINDOW_POST_SCREAM} from '../types/actionTypes/ui';
 import {Dispatch} from '../types';
 import axios from 'axios';
 
