@@ -1,5 +1,5 @@
 import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM} from '../types/actionTypes/data'
-import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS} from '../types/actionTypes/ui';
+import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS, CLOSE_WINDOW_POST_SCREAM, OPEN_WINDOW_POST_SCREAM} from '../types/actionTypes/ui';
 import {Dispatch} from '../types';
 import axios from 'axios';
 
@@ -32,7 +32,8 @@ export const postScream = (newScream: any) => (dispatch: Dispatch) => {
                 type:POST_SCREAM,
                 payload: res.data
             })
-            dispatch({ type: CLEAR_ERRORS})
+            dispatch({ type: CLEAR_ERRORS});
+            dispatch({type: CLOSE_WINDOW_POST_SCREAM});
         })
         .catch(error => {
             dispatch({
@@ -79,3 +80,4 @@ export const deleteScream = (screamId: string) => (dispatch: Dispatch) => {
         })
         .catch(error => console.log(error))
 };
+

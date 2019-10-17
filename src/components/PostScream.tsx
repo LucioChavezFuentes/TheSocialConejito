@@ -6,6 +6,7 @@ import _ from 'lodash';
 //Redux Imports
 import {connect} from 'react-redux';
 import {postScream} from '../redux/actions/dataActions';
+import {clearErrors, openWindowPostScream, closeWindowPostScream} from '../redux/actions/uiActions';
 import { AppState } from '../redux/types';
 
 
@@ -13,7 +14,6 @@ import { AppState } from '../redux/types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -34,51 +34,54 @@ const styles= createStyles({
     },
 
     submitButton : {
-        position: 'relative'
-    },
+        position: 'relative',
+        float: 'right',
+        marginBottom: '1%' 
+    }, 
 
    
     closeButton: {
         position: 'absolute',
-        left: '90%',
-        top: '10%'
+        left: '91%',
+        top: '3%'
     }
     
 })
 
 interface Props extends WithStyles<typeof styles> {
     postScream: (newScream: any) => void;
+    clearErrors: () => void;
     ui: AppState['ui'];
 }
 
 interface State {
     open: boolean;
     body: string;
-    errors: any;
 }
 
 export class PostScream extends Component<Props, State> {
     state: State = {
         open: false,
         body: '',
-        errors: null
     }
     
     handleOpen = () => {
+        
         this.setState({open: true});
     }
 
     handleClose = () => {
-        this.setState({open: false, body: '', errors: {}});
+        
+        this.setState({open: false, body: ''});
     }
 
     handleSubmit = (event : React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault()
 
         const newScream = {
-            body: this.state.body
+            body: this.state.body 
         };
-
+        //postScream on Sucess will set erros to {}, on Fail will fill Errors Redux State object with the corresponding errors
         this.props.postScream(newScream);
 
     }
@@ -90,22 +93,21 @@ export class PostScream extends Component<Props, State> {
         this.setState({
             [key]: value
         })    
-    }  
+    };  
 
     componentDidUpdate(prevProps: Props){
         //Manage logic and redux state after handleSubmit and Dispatch.
         const{ui : {errors, loading}} = this.props
-        if(errors !== prevProps.ui.errors){
+        if((errors !== prevProps.ui.errors) ){
             if(_.isEmpty(errors) && !loading){
                 this.handleClose()
-        }  
-        
+            }  
         }
     };
 
 
     render() {
-        const {classes, ui: { loading, errors }} = this.props; 
+        const {classes, ui: { loading, errors, isWindowPostScreamOpen }} = this.props; 
         
         
         return (
@@ -160,4 +162,11 @@ const mapStateToProps = (appState: AppState) => ({
     ui: appState.ui
 })
 
-export default connect(mapStateToProps, {postScream})(withStyles(styles)(PostScream))
+const mapActionsToProps = () => ({
+    postScream, 
+    clearErrors,
+    openWindowPostScream,
+    closeWindowPostScream})
+
+export default connect(mapStateToProps, mapActionsToProps )(withStyles(styles)(PostScream))
+ 

@@ -1,6 +1,8 @@
 export const SET_ERRORS = 'SET_ERRORS';
 export const LOADING_UI = 'LOADING_UI';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const OPEN_WINDOW_POST_SCREAM = 'OPEN_WINDOW_POST_SCREAM';
+export const CLOSE_WINDOW_POST_SCREAM = 'CLOSE_WINDOW_POST_SCREAM';
 
 export interface SET_ERRORS {
     type: typeof SET_ERRORS;
@@ -15,6 +17,18 @@ export interface CLEAR_ERRORS {
     type: typeof CLEAR_ERRORS
 } 
 
-type UiActions = SET_ERRORS | LOADING_UI | CLEAR_ERRORS
+export interface OPEN_WINDOW_POST_SCREAM {
+    type: typeof  OPEN_WINDOW_POST_SCREAM 
+}
+
+export interface CLOSE_WINDOW_POST_SCREAM {
+    type: typeof CLOSE_WINDOW_POST_SCREAM
+}
+
+type UiActions = SET_ERRORS | 
+    LOADING_UI | 
+    CLEAR_ERRORS |
+    OPEN_WINDOW_POST_SCREAM |
+    CLOSE_WINDOW_POST_SCREAM
 
 export default UiActions
