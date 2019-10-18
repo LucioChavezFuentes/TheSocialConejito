@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import MyButton from '../util/MyButton';
 import {withStyles, WithStyles,  createStyles } from '@material-ui/core'; 
 
+
 //Redux Imports
 import {connect} from 'react-redux';
 import {postScream} from '../redux/actions/dataActions';
@@ -85,7 +86,8 @@ export class PostScream extends Component<Props, State> {
         const newScream = {
             body: this.state.body 
         };
-        //postScream on Sucess will set erros to {}, on Fail will fill Errors Redux State object with the corresponding errors
+        //postScream on Sucess will set erros to {} and Dispatch CloseWindowPostScream, 
+        //  on Fail will fill Errors Redux State object with the corresponding errors.
         this.props.postScream(newScream);
     }
     handleChange = (event: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -97,10 +99,18 @@ export class PostScream extends Component<Props, State> {
             [key]: value
         })    
     };  
+
+ 
 /*
-    componentDidUpdate(prevProps: Props){
+    componentDidUpdate(prevProps: Props, prevState: State){
+        if((errors !== prevProps.ui.errors)){
+            this.setState( errors : this.props.ui.errors)
+        }
+        if(!_isEmpty(this.state.errors)){
+
+        }
         //Manage logic and redux state after handleSubmit and Dispatch.
-        const{ui : {errors, loading}} = this.props
+        const{ui : { loading}} = this.props
         if((errors !== prevProps.ui.errors) ){
             if(_.isEmpty(errors) && !loading){
                 this.handleClose()
@@ -111,7 +121,6 @@ export class PostScream extends Component<Props, State> {
 
     render() {
         const {classes, ui: { loading, errors, isWindowPostScreamOpen }} = this.props; 
-        
         
         return (
             <Fragment>
