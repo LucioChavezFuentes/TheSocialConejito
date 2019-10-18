@@ -1,7 +1,8 @@
-import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM} from '../types/actionTypes/data'
+import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM, SET_SCREAM} from '../types/actionTypes/dataTypes'
 
 
 import { Action } from "../types";
+import { STOP_LOADING_UI } from '../types/actionTypes/uiTypes';
 
 interface DataState {
     screams: any[];
@@ -10,7 +11,7 @@ interface DataState {
 }
 
 const initialState : DataState = {
-    screams: [],
+    screams: [], 
     scream: {},
     loading: false
 }
@@ -27,6 +28,11 @@ export default function(state = initialState, action: Action) : DataState {
                 ...state,
                 screams: action.payload,
                 loading: false,
+            }
+        case SET_SCREAM:
+            return {
+                ...state,
+                scream: action.payload,
             }
         case LIKE_SCREAM:
         case UNLIKE_SCREAM:

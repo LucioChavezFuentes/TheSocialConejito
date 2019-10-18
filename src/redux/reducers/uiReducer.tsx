@@ -1,4 +1,4 @@
-import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS, OPEN_WINDOW_POST_SCREAM, CLOSE_WINDOW_POST_SCREAM} from '../types/actionTypes/ui';
+import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS, OPEN_WINDOW_POST_SCREAM, CLOSE_WINDOW_POST_SCREAM, STOP_LOADING_UI} from '../types/actionTypes/uiTypes';
 import { Action } from '../types';
 
 const initialState = {
@@ -36,6 +36,11 @@ export default function( state = initialState, action: Action) {
             return {
                 ...state,
                 isWindowPostScreamOpen: false
+            }
+        case STOP_LOADING_UI:
+            return {
+                ...state,
+                loading: false
             }
         default:
             return state

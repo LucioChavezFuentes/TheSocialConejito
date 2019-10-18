@@ -1,7 +1,7 @@
 import { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux';
-import UserActions from './actionTypes/user';
-import UiActions from './actionTypes/ui';
-import DataActions from './actionTypes/data';
+import UserActions from './actionTypes/userTypes';
+import UiActions from './actionTypes/uiTypes';
+import DataActions from './actionTypes/dataTypes';
 import {AppState} from '../store';
 
 

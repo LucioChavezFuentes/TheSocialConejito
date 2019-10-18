@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import MyButton from '../util/MyButton';
 import {withStyles, WithStyles,  createStyles } from '@material-ui/core'; 
-
+import _ from 'lodash';
 
 //Redux Imports
 import {connect} from 'react-redux';
@@ -57,13 +57,13 @@ interface Props extends WithStyles<typeof styles> {
 }
 
 interface State {
-    open: boolean;
+    
     body: string;
 }
 
 export class PostScream extends Component<Props, State> {
     state: State = {
-        open: false,
+        
         body: '',
     }
     
@@ -78,17 +78,32 @@ export class PostScream extends Component<Props, State> {
         this.setState({body: ''});
         this.props.closeWindowPostScream();
         this.props.clearErrors(); 
-    }
+    } 
 
     handleSubmit = (event : React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault()
 
         const newScream = {
-            body: this.state.body 
+            body: this.state.body  
         };
         //postScream on Sucess will set erros to {} and Dispatch CloseWindowPostScream, 
         //  on Fail will fill Errors Redux State object with the corresponding errors.
         this.props.postScream(newScream);
+
+
+        // It seems that the setState with Function as an argument dont have the props up to date 
+        // after a Action Function Dispatch and they are called in a same function as handleSubmit.
+
+        //This is NOT a Solution, it is an example of NOT TO DO. 
+        //Instead, find the correct logic in componentDidUpdate when a change in props happen o create the actions needed in Redux.
+
+        /*this.setState((state, props) => {
+            if(_.isEmpty(props.ui.errors) &&  !props.ui.loading){
+                return {open: false, body: ''}
+            } else {
+                return null
+            }
+        })*/
     }
     handleChange = (event: React.SyntheticEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const key = event.currentTarget.name as keyof State;
@@ -100,24 +115,15 @@ export class PostScream extends Component<Props, State> {
         })    
     };  
 
- 
-/*
+    //This IS the correct solution in case you are not using Redux
+ /*
     componentDidUpdate(prevProps: Props, prevState: State){
-        if((errors !== prevProps.ui.errors)){
-            this.setState( errors : this.props.ui.errors)
+        const{ui : { loading, errors}} = this.props
+        if((errors !== prevProps.ui.errors) && (_.isEmpty(errors) && !loading)){
+            this.setState( {open: false, body: ''})
         }
-        if(!_isEmpty(this.state.errors)){
-
-        }
-        //Manage logic and redux state after handleSubmit and Dispatch.
-        const{ui : { loading}} = this.props
-        if((errors !== prevProps.ui.errors) ){
-            if(_.isEmpty(errors) && !loading){
-                this.handleClose()
-            }  
-        }
-    };*/
-
+    }; 
+*/
 
     render() {
         const {classes, ui: { loading, errors, isWindowPostScreamOpen }} = this.props; 

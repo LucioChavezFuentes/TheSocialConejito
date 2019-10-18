@@ -1,5 +1,5 @@
-import {SET_USER, SET_UNAUTHENTICATED, LOADING_USER } from '../types/actionTypes/user';
-import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS} from '../types/actionTypes/ui';
+import {SET_USER, SET_UNAUTHENTICATED, LOADING_USER } from '../types/actionTypes/userTypes';
+import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS} from '../types/actionTypes/uiTypes';
 import axios from 'axios';
 
 //Types

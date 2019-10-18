@@ -8,7 +8,7 @@ import axios from 'axios';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 import {logoutUser, getUserData} from './redux/actions/userActions';
-import { SET_AUTHENTICATED } from './redux/types/actionTypes/user';
+import { SET_AUTHENTICATED } from './redux/types/actionTypes/userTypes';
 
 
 //MUI Imports

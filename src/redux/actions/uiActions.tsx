@@ -1,5 +1,5 @@
 
-import {CLEAR_ERRORS, CLOSE_WINDOW_POST_SCREAM, OPEN_WINDOW_POST_SCREAM} from '../types/actionTypes/ui';
+import {CLEAR_ERRORS, CLOSE_WINDOW_POST_SCREAM, OPEN_WINDOW_POST_SCREAM} from '../types/actionTypes/uiTypes';
 import {Dispatch} from '../types';
 
 //Clear Errors

@@ -1,6 +1,6 @@
-import {SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER } from '../types/actionTypes/user';
+import {SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER } from '../types/actionTypes/userTypes';
 import { Action } from '../types';
-import { LIKE_SCREAM, UNLIKE_SCREAM } from '../types/actionTypes/data';
+import { LIKE_SCREAM, UNLIKE_SCREAM } from '../types/actionTypes/dataTypes';
 
 //Types
 interface UserReducer {
