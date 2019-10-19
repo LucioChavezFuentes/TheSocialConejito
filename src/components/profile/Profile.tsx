@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
 import EditDetails from './EditDetails'; 
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 //MUI Imports
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,8 +23,8 @@ import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
 
 //Redux Import
 import {connect} from 'react-redux';
-import { AppState } from '../redux/types';
-import {logoutUser, uploadImage} from '../redux/actions/userActions';
+import { AppState } from '../../redux/types';
+import {logoutUser, uploadImage} from '../../redux/actions/userActions';
 
 
 interface Props extends WithStyles<typeof styles> {

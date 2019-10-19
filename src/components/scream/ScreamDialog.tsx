@@ -1,14 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
 import {Link} from 'react-router-dom';
-import dayjs from 'dayjs'; 
-import relativeTime from 'dayjs/plugin/relativeTime'; 
-import MyButton from '../util/MyButton';
+import dayjs from 'dayjs';  
+import MyButton from '../../util/MyButton';
+import LikeButton from './LikeButton';
 
 //MUI Imports
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -16,11 +15,12 @@ import Typography from '@material-ui/core/Typography';
 //MUI Icons
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
+import ChatIcon from '@material-ui/icons/Chat';
 
 //Redux Imports
 import {connect} from 'react-redux';
-import {getScream} from '../redux/actions/dataActions';
-import { AppState } from '../redux/types';
+import {getScream} from '../../redux/actions/dataActions';
+import { AppState } from '../../redux/types';
 
 const styles = createStyles({
     closeButton: {
@@ -29,7 +29,8 @@ const styles = createStyles({
         top: '3%'
     },
     expandButton: {
-
+        position: 'absolute',
+        left: '90%'
     },
     profileImage: {
         maxWidth: '10rem',
@@ -43,6 +44,11 @@ const styles = createStyles({
     },
     dialogContent: {
         padding: '1.5rem'
+    },
+    spinnerDiv: {
+        textAlign: 'center',
+        marginTop: '3rem',
+        marginBottom: '3rem' 
     }
 })
 
@@ -85,11 +91,13 @@ class ScreamDialog extends Component<Props, State> {
         }, 
             ui : {
                 loading
-            }
+            } 
         } = this.props;
 
         const dialogMarkUp = loading ? (
-            <CircularProgress color='primary' size={100} /> 
+            <div className={classes.spinnerDiv}>
+                <CircularProgress color='primary' size={200} thickness={2} />
+            </div> 
         ) : (
             <Grid container spacing={6}> 
                 <Grid item sm={5}>
@@ -113,6 +121,16 @@ class ScreamDialog extends Component<Props, State> {
                     <Typography variant='body1'>
                         {body}
                     </Typography>
+
+                    <LikeButton screamId= {screamId} /> 
+
+                    <span>{likeCount}  Likes</span>
+
+                    <MyButton  tipTitle='Comment' >
+                        <ChatIcon color='primary' />
+                    </MyButton>
+
+                    <span>{commentCount} Comments </span>
 
                 </Grid>
             </Grid>

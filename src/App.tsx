@@ -18,7 +18,7 @@ import deepOrange from '@material-ui/core/colors/deepOrange';
 import blue from '@material-ui/core/colors/blue';
 
 //Components
-import NavBar from './components/NavBar/NavBar';
+import NavBar from './components/layout/NavBar/NavBar';
 
 //Pages
 import Home from './pages/home';

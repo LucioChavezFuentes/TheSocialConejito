@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import {withStyles, WithStyles,  createStyles } from '@material-ui/core'; 
 import _ from 'lodash';
 
 //Redux Imports
 import {connect} from 'react-redux';
-import {postScream} from '../redux/actions/dataActions';
-import {clearErrors, openWindowPostScream, closeWindowPostScream} from '../redux/actions/uiActions';
-import { AppState } from '../redux/types';
+import {postScream} from '../../redux/actions/dataActions';
+import {clearErrors, openWindowPostScream, closeWindowPostScream} from '../../redux/actions/uiActions';
+import { AppState } from '../../redux/types';
 
 
 //MUI Imports

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import MyButton from '../../util/MyButton';
-import PostScream from '../PostScream';
+import MyButton from '../../../util/MyButton';
+import PostScream from '../../scream/PostScream';
 //CSS
 //The margin 'auto' keeps the Buttons Elements at the center of ToolBar
 import './NavBar.css';
@@ -19,7 +19,7 @@ import Notifications from '@material-ui/icons/Notifications';
 
 //Redux imports
 import {connect} from 'react-redux';
-import { AppState } from '../../redux/store';
+import { AppState } from '../../../redux/store';
 
 
 
