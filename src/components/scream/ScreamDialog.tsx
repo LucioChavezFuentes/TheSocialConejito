@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';  
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 //MUI Imports
 import Dialog from '@material-ui/core/Dialog';
@@ -20,6 +22,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 //Redux Imports
 import {connect} from 'react-redux';
 import {getScream} from '../../redux/actions/dataActions';
+import {clearErrors} from '../../redux/actions/uiActions';
 import { AppState } from '../../redux/types';
 
 const styles = createStyles({
@@ -49,6 +52,14 @@ const styles = createStyles({
         textAlign: 'center',
         marginTop: '3rem',
         marginBottom: '3rem' 
+    },
+    visibleSeparator: {
+        width: '90%',
+        borderBottom: '1px solid rgba(0,0,0,0.1)',
+        marginBottom: '1rem'
+    },
+    commentsContainer: {
+        padding: '1.5rem'
     }
 })
 
@@ -58,6 +69,7 @@ interface Props extends WithStyles<typeof styles>{
     screamId: string;
     userHandle: string;
     getScream: (screamId: string) => void;
+    clearErrors: () => void;
 }
 
 interface State {
@@ -77,6 +89,7 @@ class ScreamDialog extends Component<Props, State> {
 
     handleClose = () => {
         this.setState({open: false})
+        this.props.clearErrors();
     }
 
     render() {
@@ -87,7 +100,8 @@ class ScreamDialog extends Component<Props, State> {
             commentCount, 
             likeCount, 
             userImage, 
-            userHandle
+            userHandle,
+            comments
         }, 
             ui : {
                 loading
@@ -131,8 +145,16 @@ class ScreamDialog extends Component<Props, State> {
                     </MyButton>
 
                     <span>{commentCount} Comments </span>
-
                 </Grid>
+
+                <hr className={classes.visibleSeparator} />
+
+                <CommentForm screamId={screamId}  />
+
+                <div className={classes.commentsContainer}>
+                    <Comments comments={comments}  />
+                </div> 
+
             </Grid>
         )
 
@@ -165,4 +187,4 @@ const mapStateToProps = (appState: AppState) => ({
 })
 
 
-export default connect(mapStateToProps, {getScream})(withStyles(styles)(ScreamDialog))
+export default connect(mapStateToProps, {getScream, clearErrors})(withStyles(styles)(ScreamDialog))

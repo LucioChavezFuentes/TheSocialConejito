@@ -1,4 +1,4 @@
-import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM, SET_SCREAM} from '../types/actionTypes/dataTypes'
+import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM, SET_SCREAM, SUBMIT_COMMENT} from '../types/actionTypes/dataTypes'
 
 
 import { Action } from "../types";
@@ -36,6 +36,8 @@ export default function(state = initialState, action: Action) : DataState {
             }
         case LIKE_SCREAM:
         case UNLIKE_SCREAM:
+            //TODO: Fix likeScream action and/or reducer when is dispatched on ScreamDialog Open, 
+            //it seems the like scream and unlike scream lose the screams[] property in state
             let index = state.screams.findIndex((scream) => scream.screamId === action.payload.screamId)
             state.screams[index] = action.payload
             if(state.scream.screamId === action.payload.screamId){
@@ -58,6 +60,14 @@ export default function(state = initialState, action: Action) : DataState {
                     ...state.screams
                 ]
             }
+        case SUBMIT_COMMENT:
+            return {
+                ...state,
+                scream: {
+                    ...state.scream,
+                    comments: [action.payload, ...state.scream.comments]
+                }
+            };
         default:
             return state;
     }

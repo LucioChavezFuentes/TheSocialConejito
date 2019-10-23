@@ -6,6 +6,7 @@ export const UNLIKE_SCREAM = 'UNLIKE_SCREAM';
 export const DELETE_SCREAM = 'DELETE_SCREAM';
 export const POST_SCREAM = 'POST_SCREAM';
 export const SET_SCREAM = 'SET_SCREAM';
+export const SUBMIT_COMMENT = 'SUBMIT_COMMENT';
 
 interface SET_SCREAMS {
     type: typeof SET_SCREAMS;
@@ -41,12 +42,18 @@ interface POST_SCREAM {
     payload: any
 }
 
+interface SUBMIT_COMMENT {
+    type: typeof SUBMIT_COMMENT;
+    payload: any;
+}
+
 type DataActions = SET_SCREAMS | 
     LOADING_DATA | 
     LIKE_SCREAM | 
     UNLIKE_SCREAM | 
     DELETE_SCREAM |
     POST_SCREAM |
-    SET_SCREAM
+    SET_SCREAM |
+    SUBMIT_COMMENT
 
 export default DataActions;

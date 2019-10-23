@@ -1,7 +1,12 @@
-import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM, SET_SCREAM} from '../types/actionTypes/dataTypes'
+import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, POST_SCREAM, SET_SCREAM, SUBMIT_COMMENT} from '../types/actionTypes/dataTypes'
 import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS, CLOSE_WINDOW_POST_SCREAM, STOP_LOADING_UI} from '../types/actionTypes/uiTypes';
 import {Dispatch} from '../types';
 import axios from 'axios';
+import { clearErrors } from './uiActions';
+
+interface commentData {
+    body: string
+}
 
 //Get all Screams
 export const getScreams = () => (dispacth : Dispatch) => {
@@ -86,6 +91,24 @@ export const unlikeScream = (screamId : string) => (dispatch: Dispatch) => {
         })
         .catch(error => console.log(error) ) 
 };
+
+export const submitComment = (screamId: string, commentData: commentData) => (dispatch: Dispatch) => {
+    axios.post(`/scream/${screamId}/comment`, commentData)
+        .then( res => {
+            dispatch({
+                type: SUBMIT_COMMENT,
+                payload: res.data
+            })
+            dispatch(clearErrors() as any);
+        })
+        .catch(error => {
+            dispatch({
+                type: SET_ERRORS,
+                payload: error.response.data 
+            })
+        })
+    
+}
 
 //Delete Scream
 export const deleteScream = (screamId: string) => (dispatch: Dispatch) => {
