@@ -1,4 +1,4 @@
-import {SET_USER, SET_UNAUTHENTICATED, LOADING_USER } from '../types/actionTypes/userTypes';
+import {SET_USER, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ } from '../types/actionTypes/userTypes';
 import {LOADING_UI, SET_ERRORS, CLEAR_ERRORS} from '../types/actionTypes/uiTypes';
 import axios from 'axios';
 
@@ -25,7 +25,7 @@ export const loginUser = (userData : UserData, history: History) => (dispatch : 
                     payload: err.response.data
                 })
             });
-}
+};
 
 export const signupUser = (newUserData : NewUserData, history: History) => (dispatch : Dispatch) => {
     dispatch({type: LOADING_UI})
@@ -45,13 +45,13 @@ export const signupUser = (newUserData : NewUserData, history: History) => (disp
                     payload: err.response.data
                 })
             });
-}
+};
 
 export const logoutUser = () => (dispatch:Dispatch) => {
     localStorage.removeItem('FBIdToken');
     delete axios.defaults.headers.common['Authorization'];
     dispatch({type: SET_UNAUTHENTICATED});
-}
+};
 
 export const getUserData = () => (dispatch: Dispatch) => {
     dispatch({type: LOADING_USER})
@@ -63,7 +63,7 @@ export const getUserData = () => (dispatch: Dispatch) => {
             })
         })
         .catch((error) => console.log(error));
-}
+};
 
 export const uploadImage = (formDataImage : FormData) => (dispatch: Dispatch) => {
     dispatch({type: LOADING_USER})
@@ -74,8 +74,7 @@ export const uploadImage = (formDataImage : FormData) => (dispatch: Dispatch) =>
         })
         .catch((error) => console.log(error));
     
-
-}
+};
 
 export const editUserDetails = (userDetails : any) => (dispatch: Dispatch) => {
     dispatch({type: LOADING_USER})
@@ -84,10 +83,20 @@ export const editUserDetails = (userDetails : any) => (dispatch: Dispatch) => {
             dispatch(getUserData() as any)
         })
         .catch((err) => console.log(err))
-}
+};
+
+export const markNotificationsRead = (notificationsIds: any) => (dispatch: Dispatch) => {
+    axios.post(`/notifications`, notificationsIds)
+        .then(() => {
+            dispatch({
+                type: MARK_NOTIFICATIONS_READ
+            })
+        })
+        .catch((error) => console.log(error))
+};
 
 const setAuthorizationHeader = (token: string) => {
     const FBIdToken = `Bearer ${token}`;
                 localStorage.setItem('FBIdToken', FBIdToken);
                 axios.defaults.headers.common['Authorization'] = FBIdToken
-}
+};

@@ -20,6 +20,6 @@ const AuthRoute: React.FC<Props> = ({component: Component, authenticated,  ...re
 
 const mapStateToProps = (globalState : AppState) => ({
     authenticated: globalState.user.authenticated
-})
+});
 
 export default connect(mapStateToProps)(AuthRoute);

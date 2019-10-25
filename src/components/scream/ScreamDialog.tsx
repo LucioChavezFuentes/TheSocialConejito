@@ -70,25 +70,49 @@ interface Props extends WithStyles<typeof styles>{
     userHandle: string;
     getScream: (screamId: string) => void;
     clearErrors: () => void;
+    openDialog?: boolean;
 }
 
 interface State {
-    open: boolean
+    open: boolean;
+    oldPath: string;
+    newPath: string;
 }
 
 class ScreamDialog extends Component<Props, State> {
 
     state: State = {
-        open: false
+        open: false,
+        oldPath: '',
+        newPath: '' 
     }
+
+    componentDidMount() {
+        if(this.props.openDialog){
+            this.handleOpen()
+        }
+    } 
     
     handleOpen = () => {
-        this.setState({open: true});
+        let oldPath = window.location.pathname
+
+        const {screamId, userHandle} = this.props;
+        let newPath = `/users/${userHandle}/scream/${screamId}`;
+
+        if(oldPath === newPath){
+            oldPath = `/users/${userHandle}`
+        }
+
+        window.history.pushState(null, '', newPath)
+
+        this.setState({open: true, oldPath, newPath});
         this.props.getScream(this.props.screamId);
     }
 
     handleClose = () => {
-        this.setState({open: false})
+        window.history.pushState(null, '', this.state.oldPath);
+
+        this.setState({open: false});
         this.props.clearErrors();
     }
 

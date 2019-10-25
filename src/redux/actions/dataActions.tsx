@@ -121,3 +121,21 @@ export const deleteScream = (screamId: string) => (dispatch: Dispatch) => {
         .catch(error => console.log(error))
 };
 
+export const getUserDataAndScreams = (userHandle: string) => (dispatch: Dispatch) => {
+    dispatch({type: LOADING_DATA});
+    axios.get(`/user/${userHandle}`)
+        .then(res => {
+            dispatch({
+                type:SET_SCREAMS,
+                payload: res.data.screams
+            })
+        })
+        .catch(() => {
+            dispatch({
+                type: SET_SCREAMS,
+                payload: []
+                
+            })
+        } )
+}
+

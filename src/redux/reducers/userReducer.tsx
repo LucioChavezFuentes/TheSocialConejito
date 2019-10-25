@@ -1,4 +1,4 @@
-import {SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER } from '../types/actionTypes/userTypes';
+import {SET_USER, SET_AUTHENTICATED, SET_UNAUTHENTICATED, LOADING_USER, MARK_NOTIFICATIONS_READ } from '../types/actionTypes/userTypes';
 import { Action } from '../types';
 import { LIKE_SCREAM, UNLIKE_SCREAM } from '../types/actionTypes/dataTypes';
 
@@ -57,7 +57,11 @@ export default function(state = initialState, action: Action) : UserReducer {
                 ...state,
                 likes: state.likes.filter(like => like.screamId !== action.payload.screamId)
             }
-
+        case MARK_NOTIFICATIONS_READ:
+            state.notifications.forEach(notif => notif.read = true)
+            return {
+                ...state
+            }
         default: 
             return state
     };
