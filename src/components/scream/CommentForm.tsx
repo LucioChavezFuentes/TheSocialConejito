@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
 import _ from 'lodash';
 

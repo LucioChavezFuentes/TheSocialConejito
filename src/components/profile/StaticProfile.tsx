@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import dayjs from 'dayjs';
 import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
 import {Link} from 'react-router-dom';

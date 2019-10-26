@@ -2,7 +2,6 @@ import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM, DELETE_SCREAM, P
 
 
 import { Action } from "../types";
-import { STOP_LOADING_UI } from '../types/actionTypes/uiTypes';
 
 interface DataState {
     screams: any[];

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import dayjs from 'dayjs';
 import EditDetails from './EditDetails'; 
 import MyButton from '../../util/MyButton';
+import ProfileSkeleton from '../../util/ProfileSkeleton';
 
 //MUI Imports
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -114,8 +115,6 @@ class Profile extends Component<Props> {
           handle,
           createdAt,
           bio,
-          email,
-          userId,
           imageUrl,
           location,
           website
@@ -124,7 +123,7 @@ class Profile extends Component<Props> {
         authenticated
       }
     } = this.props;
-    const profileMarkUp = loading ? (<p>Loading...</p>) : ( 
+    const profileMarkUp = loading ? (<ProfileSkeleton />) : ( 
         authenticated ? (
         <Paper className={classes.paper}>
             <div className={classes.profile}>

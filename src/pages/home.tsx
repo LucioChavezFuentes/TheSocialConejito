@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Grid from '@material-ui/core/Grid';
-
+import ScreamSkeleton from '../util/ScreamSkeleton';
 import Scream from '../components/scream/Scream';
 import Profile from '../components/profile/Profile';
 
@@ -44,7 +44,7 @@ class Home extends Component<HomeProps, HomeState> {
             screams.map( (scream : any) => ( 
             <Scream key={scream.screamId}  scream={scream} />))
             ) : (
-            <p>Loading...</p>
+            <ScreamSkeleton />
             );
 
         return (

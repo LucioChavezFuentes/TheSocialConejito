@@ -61,18 +61,21 @@ class Notifications extends Component<Props, State> {
         let notificationsIcon;
 
         if(notifications && notifications.length > 0){
-            notifications.filter(notif => notif === false).length > 0 ? (
-                notificationsIcon = (
-                <Badge badgeContent={notifications.filter(notif => notif === false).length}
+
+            const unreadNotifications = notifications.filter(notif => notif.read === false)
+
+            notificationsIcon = unreadNotifications.length > 0 ? (
+                
+                <Badge badgeContent={unreadNotifications.length}
                     color='secondary'>
                     <NotificationsIcon />
-                </Badge>)
+                </Badge>
             ) : (
-                notificationsIcon = <NotificationsIcon />
+                 <NotificationsIcon />
             )
         } else {
-            notificationsIcon = <NotificationsIcon />
-        };
+             notificationsIcon = <NotificationsIcon />
+        }; 
 
         const notificationsMarkUp =
             (notifications && notifications.length > 0) ? (
@@ -92,7 +95,8 @@ class Notifications extends Component<Props, State> {
                             {icon}
                             {/* 
                              // @ts-ignore */}
-                            <Typography component={Link} 
+                            <Typography component={Link}
+                                color='textPrimary' 
                                 variant='body1'
                                 to={`/users/${notif.recipient}/scream/${notif.screamId}`}
                                 >

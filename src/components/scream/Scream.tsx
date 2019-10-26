@@ -31,7 +31,7 @@ const styles = createStyles({
         marginBottom: 20
     },
     image: {
-        minWidth: 200
+        minWidth: '12rem'
     },
     content: {
         padding: 25,
