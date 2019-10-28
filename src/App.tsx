@@ -13,7 +13,8 @@ import { SET_AUTHENTICATED } from './redux/types/actionTypes/userTypes';
 
 
 //MUI Imports
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { ThemeProvider } from 'styled-components'
+//import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 import blue from '@material-ui/core/colors/blue';
@@ -66,7 +67,7 @@ if (token) {
 
 const App: React.FC = () => {
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Provider store={store}>
 
         <Router>
@@ -100,7 +101,7 @@ const App: React.FC = () => {
 
       </Provider>
 
-    </MuiThemeProvider>
+    </ThemeProvider>
 
   );
 }
