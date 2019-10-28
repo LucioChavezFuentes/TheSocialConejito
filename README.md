@@ -1,3 +1,5 @@
+# The Social Conejito
+
 The Social Conejito is a social network composed in short messages named 'Squeals or Screams' 
 for user expression who everyone can see, like and comment. If you want to like or comment 
 you need to sign up, once authenticated you can view or edit 
@@ -5,9 +7,9 @@ your personal information.
 
 The user recieve notifications when another user liked or commented his 'Scream or Squeal'.
 
-The app is formed in tow pages: Home Page, Scream Page, and User Page
+### The app is formed in three pages: Home Page, Scream Page, and User Page
 
-The Home Page:
+* The Home Page:
 
 Can be visited by anyone and it is filled with recent Squeals or Screams of app's users.
 This page change according to user's authentication.
@@ -34,13 +36,13 @@ The user can see his profile card with his personal information and profile
 picture next to the list of Screams. In the profile card there are buttons with tooltips which allow 
 the user to edit his personal information, change his profile picture and logout.
 
-The User Page:
+* The User Page:
 
 Can be visited by any user but only authenticated users and can edit their corresponding page information.
 Here, the user's Screams and personal information are shown. The buttons to edit user's information 
 are only present if it is the owner user.
 
-The Scream Page:
+* The Scream Page:
 
 This can be reached through 'see more' button present on each Scream Card. It is a small 
 window with all related scream info.
