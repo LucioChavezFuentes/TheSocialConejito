@@ -1,44 +1,47 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Social Conejito is a social network composed in short messages named 'Squeals or Screams' 
+for user expression who everyone can see, like and comment. If you want to like or comment 
+you need to sign up, once authenticated you can view or edit 
+your personal information.
 
-## Available Scripts
+The user recieve notifications when another user liked or commented his 'Scream or Squeal'.
 
-In the project directory, you can run:
+The app is formed in tow pages: Home Page, Scream Page, and User Page
 
-### `yarn start`
+The Home Page:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Can be visited by anyone and it is filled with recent Squeals or Screams of app's users.
+This page change according to user's authentication.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+When user is not authenticated:
 
-### `yarn test`
+The navigation bar has three buttons: Home, Login and Signup. On click one of these will
+redirect the user to the corresponding page. Next to the list of Screams there is a small
+box with Login and Signup buttons with same navigation bar's functionality.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The Signup page provides a form in which the user can create a new account, if the signup
+is succesful the app will authenticate the user automatically and gives default data.
 
-### `yarn build`
+The Login page permit a user who already have an account to authenticate, if the login is
+succesful the app will autheticate with his personal and customized data previously edited
+and saved.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+When user is authenticated:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+The navigation Bar is formed in three buttons: The Post Scream button marked with a '+' symbol,
+the Home button and the Notifications button marked with a bell.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The user can see his profile card with his personal information and profile
+picture next to the list of Screams. In the profile card there are buttons with tooltips which allow 
+the user to edit his personal information, change his profile picture and logout.
 
-### `yarn eject`
+The User Page:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Can be visited by any user but only authenticated users and can edit their corresponding page information.
+Here, the user's Screams and personal information are shown. The buttons to edit user's information 
+are only present if it is the owner user.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The Scream Page:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This can be reached through 'see more' button present on each Scream Card. It is a small 
+window with all related scream info.
+Can be visited by anyone but only authenticated users can post a comment and like on the scream.
