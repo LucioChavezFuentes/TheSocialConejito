@@ -13,11 +13,7 @@ import { SET_AUTHENTICATED } from './redux/types/actionTypes/userTypes';
 
 
 //MUI Imports
-import { ThemeProvider } from 'styled-components'
-//import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import deepOrange from '@material-ui/core/colors/deepOrange';
-import blue from '@material-ui/core/colors/blue';
+import {MuiThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 
 //Components
 import NavBar from './components/layout/NavBar/NavBar';
@@ -35,9 +31,14 @@ import AuthRoute from './util/AuthRoute';
 const theme = createMuiTheme({
 
   palette: {
-    primary: blue,
-    secondary: deepOrange,
+    primary: {
+      main: '#1e88e5',
+    },
+    secondary: {
+      main: '#e64a19',
+    },
   },
+  
 
 })
 
@@ -67,7 +68,7 @@ if (token) {
 
 const App: React.FC = () => {
   return (
-    <ThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme}>
       <Provider store={store}>
 
         <Router>
@@ -101,7 +102,7 @@ const App: React.FC = () => {
 
       </Provider>
 
-    </ThemeProvider>
+    </MuiThemeProvider>
 
   );
 }
