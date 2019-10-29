@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 const styles = createStyles({
 
     invisibleSeparator: {
+        width: '90%',
         border: 'none',
         margin: '0.3rem' 
     },
@@ -50,7 +51,8 @@ class Comments extends Component<Props> {
         const {classes, comments} = this.props;
 
         return (
-            <Grid container >
+            <Grid container>
+                
                 {comments.map((comment : comment, index) => {
                     const {body, createdAt, userImage, userHandle} = comment;
 
@@ -58,10 +60,10 @@ class Comments extends Component<Props> {
                         <Fragment key={createdAt}>
                             <Grid item sm={12}>
                                 <Grid container>
-                                    <Grid item sm={2}>
+                                    <Grid item sm={3}>
                                         <img src={userImage} alt="Comment" className={classes.commentImage} />
                                     </Grid>
-
+ 
                                     <Grid item sm={9}>
                                         <div className={classes.commentData}>
                                             {/* 
@@ -90,11 +92,13 @@ class Comments extends Component<Props> {
                                 </Grid>
                             </Grid>
 
-                            {index !== comments.length - 1 && (
+                            {index !== comments.length - 1 ? (
                                 <hr className={classes.visibleSeparator}/>
+                            ) : ( 
+                               <hr className={classes.invisibleSeparator} /> 
                             )}
 
-                        </Fragment>
+                        </Fragment> 
                     )
                 })}
 

@@ -59,7 +59,8 @@ const styles = createStyles({
         marginBottom: '1rem'
     },
     commentsContainer: {
-        padding: '1.5rem'
+        padding: '1.5rem',
+        width: '90%'
     }
 })
 
