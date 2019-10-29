@@ -1,7 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component} from 'react';
+import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
 import MyButton from '../../../util/MyButton';
 import PostScream from '../../scream/PostScream';
 import Notifications from '../Notifications';
+import AppIcon from '../../../images/icon.svg';
 //CSS
 //The margin 'auto' keeps the Buttons Elements at the center of ToolBar
 import './NavBar.css';
@@ -13,6 +15,7 @@ import {Link} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 //Material Ui Icons
 import HomeIcon from '@material-ui/icons/Home';
@@ -22,21 +25,52 @@ import HomeIcon from '@material-ui/icons/Home';
 import {connect} from 'react-redux';
 import { AppState } from '../../../redux/store';
 
+const styles = createStyles({
+    navContainer: {
+        
+        flexGrow: 2,
+        textAlign: 'center',
+        '& svg': {
+            color: '#ffffff'
+        }
+    },
+
+    rabbitImageContainer: {
+        flexGrow: 1
+    },
+
+    rabbitImage: {
+    maxWidth: '2rem',
+    maxHeight: '2rem'
+    },
+
+    invisibleObject: {
+        flexGrow: 1,
+        visibility: 'hidden' 
+    }
+})
 
 
-
-interface Props {
+interface Props extends WithStyles<typeof styles> {
     authenticated: boolean
 }
 
-export class NavBar extends Component<Props> {
+class NavBar extends Component<Props> { 
     render() {
-        const {authenticated} = this.props;
+        const {authenticated, classes} = this.props;
         return (
             <AppBar>
-                <Toolbar className='nav-container'>
+                
+                <Toolbar  >
+                <div className={classes.rabbitImageContainer}>
+                    <Link to='/'>
+                        <Tooltip title='Regresa a Casa'>
+                            <img src={AppIcon} alt='El Conejito te saluda' className={classes.rabbitImage} />
+                        </Tooltip>
+                    </Link> 
+                </div>
                     {authenticated ? ( 
-                        <Fragment>
+                        <div className={classes.navContainer}>
                             <PostScream />
 
                             <Link to='/'>
@@ -45,10 +79,10 @@ export class NavBar extends Component<Props> {
                                 </MyButton>
                             </Link>
 
-                            <Notifications />
+                            <Notifications /> 
 
-                        </Fragment>) : (
-                        <Fragment>
+                        </div>) : (
+                        <div className={classes.navContainer}>
                             <Button color="inherit" component={Link} to='/'>
                                 Home 
                             </Button>
@@ -60,8 +94,13 @@ export class NavBar extends Component<Props> {
                             <Button color="inherit" component={Link} to='/signup'>
                                 Signup 
                             </Button>
-                        </Fragment>
+                        </div>
                     )}
+
+                    <div className={classes.invisibleObject}>
+                        <img  alt='El Conejito te saluda' className={classes.rabbitImage} />
+                    </div>
+
                 </Toolbar>
             </AppBar>
         )
@@ -72,4 +111,4 @@ const mapStateToProps = (globalState: AppState) => ({
     authenticated: globalState.user.authenticated
 })
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps)(withStyles(styles)(NavBar));

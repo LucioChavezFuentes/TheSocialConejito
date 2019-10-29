@@ -66,9 +66,10 @@ export default function(state = initialState, action: Action) : DataState {
                 ...state,
                 scream: {
                     ...state.scream,
-                    comments: [action.payload, ...state.scream.comments]
+                    ...action.payload.dataScream,
+                    comments: [action.payload.newComment, ...state.scream.comments]
                 }
-            };
+            }; 
         default:
             return state;
     }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
-import AppIcon from '../images/icon.png';
+import AppIcon from '../images/icon.svg';
 import {History} from 'history';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom'; 
 
 //MUI Imports
 import Grid from '@material-ui/core/Grid';
@@ -41,9 +41,9 @@ const styles = createStyles({
         textAlign: "center"
     },
     image: {
-        margin: "20px auto",
-        width: '100px',
-        height: '100px'
+        margin: "1.5rem auto",
+        width: '10rem',
+        height: '10rem'
     },
     pageTitle: {
         margin: "0.2rem auto"

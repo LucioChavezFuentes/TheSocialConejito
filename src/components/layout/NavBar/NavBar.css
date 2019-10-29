@@ -5,3 +5,9 @@
 .nav-container svg {
     color: #ffffff;
 }
+
+.rabbit-image {
+    max-width: 2rem;
+    max-height: 2rem;
+    position: relative;
+}

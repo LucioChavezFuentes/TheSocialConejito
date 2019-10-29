@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {withStyles, WithStyles,  createStyles } from '@material-ui/core';
-import AppIcon from '../images/icon.png';
+import AppIcon from '../images/icon.svg';
 import {Link} from 'react-router-dom';
-import {History} from 'history';
+import {History} from 'history'; 
 
 //MUI Imports
 import Grid from '@material-ui/core/Grid';
@@ -41,9 +41,9 @@ const styles = createStyles({
         textAlign: "center"
     },
     image: {
-        margin: "20px auto",
-        width: '100px',
-        height: '100px'
+        margin: "1.5rem auto",
+        width: '10rem',
+        height: '10rem'
     },
     pageTitle: {
         margin: "0.2rem auto"
@@ -97,7 +97,7 @@ class Login extends Component<LoginProps, LoginState> {
         const value =  event.currentTarget.value; 
         //@ts-ignore
         //The error is the following: https://stackoverflow.com/questions/42090191/picks-k-type-with-dynamic-computed-keys
-        this.setState({
+        this.setState({ 
             [key]: value
         })    
     }  
@@ -111,7 +111,7 @@ class Login extends Component<LoginProps, LoginState> {
                 <Grid item sm />
 
                 <Grid item sm>
-                   <img  src={AppIcon} alt='Mono Cocol Inicios' className={classes.image} />
+                   <img  src={AppIcon} alt='El Conejito te saluda' className={classes.image} />
                    <Typography variant='h2' className={classes.pageTitle}>
                         Login
                    </Typography>
