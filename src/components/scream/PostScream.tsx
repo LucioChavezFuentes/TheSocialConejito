@@ -129,7 +129,7 @@ export class PostScream extends Component<Props, State> {
         
         return (
             <Fragment>
-                <MyButton tipTitle={'Post a Scream'} onClick={this.handleOpen} tipClassName={'TobeDeclared'} btnClassName={'TobeDeclared'}  >
+                <MyButton tipTitle={'Post a Squeal'} onClick={this.handleOpen} tipClassName={'TobeDeclared'} btnClassName={'TobeDeclared'}  >
                     <AddIcon color='primary' />
                 </MyButton> 
                 <Dialog open={isWindowPostScreamOpen} onClose={this.handleClose} fullWidth maxWidth='sm'>
@@ -137,7 +137,7 @@ export class PostScream extends Component<Props, State> {
                         <CloseIcon />
                     </MyButton> 
 
-                    <DialogTitle> Post a Scream </DialogTitle>
+                    <DialogTitle> Post a Squeal </DialogTitle>
 
                     <DialogContent>
                         <form onSubmit={this.handleSubmit}>

@@ -114,7 +114,7 @@ class Notifications extends Component<Props, State> {
 
         return (
             <Fragment>
-                <Tooltip title='notifications' placement='top'>
+                <Tooltip title='Notificaciones' placement='top'>
                     <IconButton aria-owns={anchorElement ? 'simple-menu' : undefined} aria-haspopup='true' onClick={this.handleOpen}>
                         {notificationsIcon}
                     </IconButton>

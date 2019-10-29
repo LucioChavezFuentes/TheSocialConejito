@@ -46,8 +46,9 @@ const styles = createStyles({
 
     invisibleObject: {
         flexGrow: 1,
-        visibility: 'hidden' 
-    }
+        visibility: 'hidden',
+        display: 'flex'
+    } 
 })
 
 
@@ -97,9 +98,9 @@ class NavBar extends Component<Props> {
                         </div>
                     )}
 
-                    <div className={classes.invisibleObject}>
-                        <img  alt='El Conejito te saluda' className={classes.rabbitImage} />
-                    </div>
+                    <div className={classes.invisibleObject}> 
+                        <img src={AppIcon} alt='Encontraste al conejito oculto' className={classes.rabbitImage} />
+                    </div> 
 
                 </Toolbar>
             </AppBar>
